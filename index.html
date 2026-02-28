@@ -4,44 +4,127 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="SpeakUp" />
-  <meta name="theme-color" content="#0b1220" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="SpeakUp -USALI Vocab Practice-" />
+  <meta name="theme-color" content="#f6f4ef" />
 
-  <title>SpeakUp</title>
+  <title>SpeakUp -USALI Vocab Practice-</title>
 
   <style>
     :root{
-      --bg:#0b1220;
-      --line:rgba(255,255,255,.10);
-      --text:#e9eefc;
-      --muted:#9ab0d6;
-      --accent1:rgba(110,231,255,.18);
-      --accent2:rgba(124,255,166,.14);
-      --btn:linear-gradient(90deg,var(--accent1),var(--accent2));
-      --shadow:0 10px 40px rgba(0,0,0,.35);
+      /* Off-white base */
+      --bg:#f6f4ef;
+      --bg2:#fbfaf7;
+      --paper:#ffffff;
+      --paper2:#fbfbfb;
+      --ink:#12161f;
+      --muted:#5b6475;
+      --muted2:#7b8598;
+
+      --line:rgba(18,22,31,.10);
+      --line2:rgba(18,22,31,.08);
+
+      /* Accent gradients */
+      --g1:#3aa7ff;
+      --g2:#5ee7c1;
+      --g3:#a88bff;
+
+      --shadow:0 14px 40px rgba(18,22,31,.10);
+      --shadow2:0 10px 26px rgba(18,22,31,.08);
       --radius:16px;
+
+      /* Font */
+      --font: "Aptos Narrow","Aptos","Arial Narrow","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
     }
+
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(900px 520px at 18% 20%, rgba(58,167,255,.12), transparent 60%),
+        radial-gradient(820px 520px at 80% 30%, rgba(94,231,193,.10), transparent 62%),
+        radial-gradient(900px 620px at 70% 88%, rgba(168,139,255,.10), transparent 62%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      color:var(--ink);
+      font-family:var(--font);
+      overflow-x:hidden;
     }
+
+    /* Soft animated blobs (lightweight) */
+    .blob{
+      position:fixed;
+      inset:auto;
+      width:520px;
+      height:520px;
+      border-radius:999px;
+      filter: blur(40px);
+      opacity:.18;
+      pointer-events:none;
+      z-index:0;
+      mix-blend-mode:multiply;
+      animation: floaty 12s ease-in-out infinite;
+    }
+    .blob.b1{
+      left:-180px; top:-160px;
+      background: radial-gradient(circle at 30% 30%, rgba(58,167,255,.85), transparent 60%);
+      animation-delay:-1s;
+    }
+    .blob.b2{
+      right:-220px; top:40px;
+      background: radial-gradient(circle at 40% 40%, rgba(94,231,193,.85), transparent 62%);
+      animation-delay:-5s;
+    }
+    .blob.b3{
+      left:20%; bottom:-260px;
+      background: radial-gradient(circle at 45% 45%, rgba(168,139,255,.85), transparent 62%);
+      animation-delay:-8s;
+    }
+    @keyframes floaty{
+      0%{ transform: translate3d(0,0,0) scale(1); }
+      50%{ transform: translate3d(18px,-14px,0) scale(1.03); }
+      100%{ transform: translate3d(0,0,0) scale(1); }
+    }
+
     .wrap{
+      position:relative;
+      z-index:1;
       max-width:1100px;
       margin:0 auto;
       padding:22px 16px 92px;
     }
 
+    /* Title */
     .title{
       text-align:center;
-      margin:8px 0 10px;
-      font-family:"Times New Roman", Times, Georgia, serif;
+      margin:10px 0 6px;
       font-weight:800;
-      letter-spacing:.6px;
-      font-size:36px;
+      letter-spacing:.4px;
+      font-size:34px;
+    }
+    .subtitle{
+      text-align:center;
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:600;
+    }
+
+    /* Animated gradient line under title */
+    .gradLine{
+      height:3px;
+      width:min(560px, 92%);
+      margin:0 auto 14px;
+      border-radius:999px;
+      background: linear-gradient(90deg, var(--g1), var(--g2), var(--g3), var(--g1));
+      background-size: 260% 100%;
+      box-shadow: 0 10px 24px rgba(18,22,31,.10);
+      animation: shimmer 7s linear infinite;
+    }
+    @keyframes shimmer{
+      0%{ background-position: 0% 50%; }
+      100%{ background-position: 260% 50%; }
     }
 
     .topRow{
@@ -52,49 +135,70 @@
       flex-wrap:wrap;
       margin:10px 0 12px;
     }
+
     .pill{
       display:inline-flex;
       gap:8px;
       align-items:center;
       border:1px solid var(--line);
-      background:rgba(255,255,255,.03);
+      background:rgba(255,255,255,.65);
       padding:10px 12px;
       border-radius:999px;
       color:var(--muted);
       font-size:13px;
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
     }
-    .pill strong{ color:var(--text); font-weight:800; }
+    .pill strong{ color:var(--ink); font-weight:900; }
 
     .pill select{
       border:1px solid var(--line);
-      background:rgba(0,0,0,.18);
-      color:var(--text);
+      background:rgba(255,255,255,.9);
+      color:var(--ink);
       border-radius:999px;
       padding:8px 10px;
       outline:none;
-      font-weight:800;
+      font-weight:900;
       appearance:none;
       -webkit-appearance:none;
       -moz-appearance:none;
     }
 
     .card{
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.82));
       border:1px solid var(--line);
       border-radius:var(--radius);
       padding:14px;
-      box-shadow:var(--shadow);
+      box-shadow: var(--shadow);
       margin:12px 0;
+      position:relative;
+      overflow:hidden;
     }
+    /* subtle top highlight */
+    .card::before{
+      content:"";
+      position:absolute;
+      left:-20%;
+      top:-60%;
+      width:140%;
+      height:120%;
+      background: radial-gradient(circle at 20% 20%, rgba(58,167,255,.10), transparent 55%),
+                  radial-gradient(circle at 70% 35%, rgba(94,231,193,.08), transparent 60%);
+      pointer-events:none;
+    }
+
     .card h2{
+      position:relative;
       margin:0 0 10px;
       font-size:16px;
       letter-spacing:.2px;
     }
+
     .small{
+      position:relative;
       font-size:12px;
       color:var(--muted);
-      line-height:1.4;
+      line-height:1.5;
     }
 
     .btn{
@@ -102,31 +206,72 @@
       padding:14px;
       border-radius:14px;
       border:1px solid var(--line);
-      background:var(--btn);
-      color:#fff;
+      background: linear-gradient(90deg, rgba(58,167,255,.85), rgba(94,231,193,.78));
+      color:#0b1020;
       font-weight:900;
       font-size:16px;
       cursor:pointer;
+      box-shadow: 0 16px 34px rgba(58,167,255,.18);
+      position:relative;
+      overflow:hidden;
+      transform: translateZ(0);
+    }
+    .btn::after{
+      content:"";
+      position:absolute;
+      top:-60%;
+      left:-30%;
+      width:40%;
+      height:220%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
+      transform: rotate(18deg);
+      opacity:.0;
+      transition: opacity .25s ease;
+      animation: none;
+      pointer-events:none;
+    }
+    .btn:hover::after{
+      opacity:.9;
+      animation: sweep 1.1s ease-in-out infinite;
+    }
+    @keyframes sweep{
+      0%{ left:-40%; }
+      100%{ left:120%; }
     }
     .btn:active{ transform:translateY(1px); }
+
     .btnSec{
       padding:10px 12px;
       border-radius:12px;
       border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      color:var(--text);
+      background:rgba(255,255,255,.85);
+      color:var(--ink);
       cursor:pointer;
       white-space:nowrap;
+      box-shadow: var(--shadow2);
     }
+    .btnSec:hover{ background:rgba(255,255,255,.98); }
 
     .kwItem{
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.03);
+      border:1px solid var(--line2);
+      background:rgba(255,255,255,.82);
       border-radius:14px;
       padding:12px;
       margin:10px 0;
+      box-shadow: var(--shadow2);
+      position:relative;
+      overflow:hidden;
+    }
+    .kwItem::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(90deg, rgba(58,167,255,.06), rgba(94,231,193,.05), rgba(168,139,255,.04));
+      opacity:.35;
+      pointer-events:none;
     }
     .kwTop{
+      position:relative;
       display:flex;
       gap:10px;
       align-items:baseline;
@@ -138,15 +283,16 @@
       font-size:14px;
     }
     .kwTop .ja{
-      color:var(--muted);
+      color:var(--muted2);
       font-size:12px;
-      font-weight:600;
+      font-weight:700;
     }
     .uses{
+      position:relative;
       margin-top:8px;
       font-size:12px;
-      color:#cfe0ff;
-      line-height:1.5;
+      color:#1a2740;
+      line-height:1.55;
       white-space:pre-line;
     }
 
@@ -157,20 +303,24 @@
       padding:12px;
       border-radius:12px;
       border:1px solid var(--line);
-      background:rgba(0,0,0,.22);
-      color:var(--text);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background:rgba(255,255,255,.90);
+      color:var(--ink);
+      font-family: var(--mono);
       font-size:12px;
       line-height:1.45;
       outline:none;
+      box-shadow: var(--shadow2);
     }
 
+    /* Tabs */
     .tabs{
       position:fixed;
       left:0; right:0; bottom:0;
       padding:10px 10px calc(10px + env(safe-area-inset-bottom));
-      background:linear-gradient(180deg, rgba(11,18,32,.0), rgba(11,18,32,.9) 30%, rgba(11,18,32,.98));
+      background:linear-gradient(180deg, rgba(246,244,239,.0), rgba(246,244,239,.86) 30%, rgba(246,244,239,.96));
       backdrop-filter: blur(10px);
+      z-index:2;
+      border-top:1px solid rgba(18,22,31,.06);
     }
     .tabRow{
       max-width:1100px;
@@ -183,25 +333,27 @@
       padding:12px 10px;
       border-radius:14px;
       border:1px solid var(--line);
-      background:rgba(255,255,255,.03);
-      color:#cfe0ff;
-      font-weight:800;
+      background:rgba(255,255,255,.80);
+      color:#1a2740;
+      font-weight:900;
       cursor:pointer;
+      box-shadow: var(--shadow2);
     }
     .tabBtn.active{
-      background:rgba(255,255,255,.07);
-      color:#fff;
+      background: linear-gradient(90deg, rgba(58,167,255,.14), rgba(94,231,193,.12));
+      border-color: rgba(58,167,255,.22);
     }
     .view{ display:none; }
     .view.active{ display:block; }
 
+    /* Toast */
     .toast{
       position:fixed;
       left:50%;
       bottom:86px;
       transform:translateX(-50%);
-      background:rgba(0,0,0,.75);
-      border:1px solid rgba(255,255,255,.12);
+      background:rgba(18,22,31,.88);
+      border:1px solid rgba(255,255,255,.18);
       color:#fff;
       padding:10px 12px;
       border-radius:999px;
@@ -209,14 +361,22 @@
       opacity:0;
       pointer-events:none;
       transition:opacity .18s ease;
+      z-index:3;
     }
     .toast.show{ opacity:1; }
   </style>
 </head>
 
 <body>
+  <!-- animated background blobs -->
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
   <div class="wrap">
-    <div class="title">SpeakUp</div>
+    <div class="title">SpeakUp -USALI Vocab Practice-</div>
+    <div class="subtitle">Hotel Finance / USALI vocabulary → generate → practice speaking (or typing)</div>
+    <div class="gradLine"></div>
 
     <div class="topRow">
       <div class="pill">
@@ -352,7 +512,7 @@ const DAYS = [
 ];
 
 /* =========================
-   ユーティリティ
+   Utils
    ========================= */
 function pad2(n){ return String(n).padStart(2,'0'); }
 function todayKey(){
@@ -375,7 +535,7 @@ function toast(msg){
 }
 
 /* =========================
-   Day選択（自動：日付ベース）＋手動プルダウン上書き
+   Day selection: auto by date + manual override
    ========================= */
 function dayIndexForDate(dateObj){
   const y = dateObj.getFullYear();
@@ -384,12 +544,8 @@ function dayIndexForDate(dateObj){
   const seed = Number(String(y) + pad2(m) + pad2(d));
   return seed % DAYS.length;
 }
-function autoDayIndex(){
-  return dayIndexForDate(new Date());
-}
-function manualDayKey(){
-  return "speakup_manualDay_" + todayKey();
-}
+function autoDayIndex(){ return dayIndexForDate(new Date()); }
+function manualDayKey(){ return "speakup_manualDay_" + todayKey(); }
 function getManualDayIndex(){
   const v = localStorage.getItem(manualDayKey());
   if (v === null || v === undefined) return null;
@@ -398,25 +554,16 @@ function getManualDayIndex(){
   if (n < 0 || n >= DAYS.length) return null;
   return n;
 }
-function setManualDayIndex(idx){
-  localStorage.setItem(manualDayKey(), String(idx));
-}
+function setManualDayIndex(idx){ localStorage.setItem(manualDayKey(), String(idx)); }
 function currentDayIndex(){
   const m = getManualDayIndex();
   return (m === null) ? autoDayIndex() : m;
 }
 
-/* =========================
-   上長ロール（Owner / GM）自動
-   - 奇数Day: Owner, 偶数Day: GM
-   ========================= */
-function bossRoleForDay(dayNo){
-  return (dayNo % 2 === 1) ? "Owner" : "GM";
-}
+/* Boss role: odd day => Owner, even day => GM */
+function bossRoleForDay(dayNo){ return (dayNo % 2 === 1) ? "Owner" : "GM"; }
 
-/* =========================
-   利用/未利用（Let’s speak up! 押下で利用）
-   ========================= */
+/* Used flag */
 function isUsedToday(){
   const key = "speakup_used_" + todayKey();
   return localStorage.getItem(key) === "1";
@@ -426,10 +573,7 @@ function markUsedToday(){
   localStorage.setItem(key, "1");
 }
 
-/* =========================
-   Day Select 初期化
-   - 表示は Day No. のみ（タイトル無し）
-   ========================= */
+/* Init selector */
 function initDaySelect(){
   const sel = document.getElementById("topicSelect");
   sel.innerHTML = "";
@@ -449,9 +593,7 @@ function initDaySelect(){
   });
 }
 
-/* =========================
-   Prompt Builder（ここが本体）
-   ========================= */
+/* Prompt Builder */
 function buildGeneratorPrompt(day){
   const idx = currentDayIndex();
   const dayNo = idx + 1;
@@ -465,7 +607,8 @@ function buildGeneratorPrompt(day){
   lines.push(`Today's focus: ${day.title}`);
   lines.push(`Focus detail (JP): ${day.focus}`);
   lines.push("");
-  lines.push("TASK A) Create 3 to 5 hotel finance / USALI vocabulary items (terms or short phrases).");
+  lines.push("TASK 1) Vocab Overview & Memorize Phase");
+  lines.push("Create 3 to 5 hotel finance / USALI vocabulary items (terms or short phrases).");
   lines.push("For EACH item, output in this exact structure:");
   lines.push("1) Term:");
   lines.push("2) Meaning (JP):");
@@ -474,8 +617,8 @@ function buildGeneratorPrompt(day){
   lines.push("5) Example sentences (EN): exactly 3 short sentences");
   lines.push(`6) Boss question (${boss}) (EN): exactly 1 question that a hotel ${boss} would ask using this term`);
   lines.push("");
-  lines.push("TASK B) Speaking/Typing Practice");
-  lines.push("After you finish TASK A, start practice using the terms.");
+  lines.push("TASK 2) Use Phase (Speaking or Typing)");
+  lines.push("After you finish TASK 1, start practice using the terms.");
   lines.push("Rules for practice:");
   lines.push("- Ask ONE question at a time.");
   lines.push("- After my answer, do: (a) brief correction, (b) more natural alternative, (c) confirm if my usage is correct, (d) if wrong, show a correct example answer.");
@@ -488,13 +631,11 @@ function buildGeneratorPrompt(day){
   lines.push("");
   lines.push("Seed terms (use as hints; you can replace/add better ones): " + day.seeds.join(", "));
   lines.push("");
-  lines.push("Start with TASK A now.");
+  lines.push("Start with TASK 1 now.");
   return lines.join("\n");
 }
 
-/* =========================
-   表示
-   ========================= */
+/* Render */
 function renderToday(){
   const idx = currentDayIndex();
   const dayNo = idx + 1;
@@ -506,15 +647,12 @@ function renderToday(){
   document.getElementById("topicLabel").textContent = "Day " + dayNo;
   document.getElementById("bossRoleLabel").textContent = boss;
 
-  // Select reflects current
   const sel = document.getElementById("topicSelect");
   if (sel && sel.value !== String(idx)) sel.value = String(idx);
 
-  // Prompt area
   const prompt = buildGeneratorPrompt(day);
   document.getElementById("promptArea").textContent = prompt;
 
-  // Seeds list
   const kwList = document.getElementById("kwList");
   kwList.innerHTML = "";
   day.seeds.forEach(s => {
@@ -534,10 +672,7 @@ function renderToday(){
 
 function appendSeedToNotes(seed){
   const ta = document.getElementById("notesArea");
-  const block =
-`- seed: ${seed}
-
-`;
+  const block = `- seed: ${seed}\n\n`;
   ta.value = (ta.value || "") + block;
   toast("Notesに追記しました");
 }
@@ -553,9 +688,7 @@ function openChatGPTWithPrompt(prompt){
   window.open(url, "_blank");
 }
 
-/* =========================
-   History
-   ========================= */
+/* History */
 function saveHistory(){
   const idx = currentDayIndex();
   const day = DAYS[idx];
@@ -581,9 +714,7 @@ function renderHistory(){
   area.textContent = list.map(x => `- ${x.date} / Day ${x.dayNo} / ${x.title}`).join("\n");
 }
 
-/* =========================
-   Tabs
-   ========================= */
+/* Tabs */
 function switchTab(num){
   document.getElementById("viewToday").classList.toggle("active", num===1);
   document.getElementById("viewHistory").classList.toggle("active", num===2);
@@ -596,13 +727,11 @@ function switchTab(num){
   if (num===2) renderHistory();
 }
 
-/* =========================
-   Midnight auto-refresh
-   ========================= */
+/* Midnight refresh */
 function scheduleMidnightRefresh(){
   const now = new Date();
   const next = new Date(now);
-  next.setHours(24,0,1,0); // 00:00:01
+  next.setHours(24,0,1,0);
   const ms = next.getTime() - now.getTime();
   setTimeout(() => {
     renderToday();
@@ -611,9 +740,7 @@ function scheduleMidnightRefresh(){
   }, ms);
 }
 
-/* =========================
-   Events
-   ========================= */
+/* Events */
 window.addEventListener("load", () => {
   initDaySelect();
   renderToday();
